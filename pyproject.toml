@@ -1,5 +1,5 @@
 [project]
-name = "lott-prediction"
+name = "lottery_demo"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
