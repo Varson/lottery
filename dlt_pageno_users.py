@@ -15,7 +15,7 @@ from pathlib import Path
 def get_users(tag):
     options = Options()
     # options.add_argument("--headless=new")
-    driver = webdriver.Edge(options=options)
+    driver = webdriver.Chrome(options=options)
     resdict = defaultdict(list)
     driver.get(f"https://www.yiqicai.com/ex/dltex_{tag}")
     WebDriverWait(driver,60).until(EC.presence_of_element_located((By.XPATH,"//div[@class='exp-list']")))

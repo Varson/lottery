@@ -8,7 +8,6 @@ wheels/
 *checkpoints/
 .vscode/
 data/
-*.ipynb
 .DS_Store
 
 # Virtual environments
