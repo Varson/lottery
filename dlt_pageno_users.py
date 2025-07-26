@@ -14,8 +14,8 @@ from pathlib import Path
 
 def get_users(tag):
     options = Options()
-    options.add_argument("--headless=new")
-    driver = webdriver.Chrome(options=options)
+    # options.add_argument("--headless=new")
+    driver = webdriver.Edge(options=options)
     resdict = defaultdict(list)
     driver.get(f"https://www.yiqicai.com/ex/dltex_{tag}")
     WebDriverWait(driver,60).until(EC.presence_of_element_located((By.XPATH,"//div[@class='exp-list']")))
@@ -35,7 +35,7 @@ def get_users(tag):
     df = pd.DataFrame(resdict)
     return df
 if __name__ == "__main__":
-    seqno = 2025040
+    seqno = 2025084
     tags = [1025,1020,1010,1003,1002,1001,1106,1103,2006,2002,2001,2103]
     schemas = [config.drschema25,config.drschema20,config.drschema10,config.drschema3,config.drschema2,config.drschema1,config.drschemak6,config.drschemak3,config.dbschema6,config.dbschema2,config.dbschema1,config.dbschemak3]
     tag_schema = {i:j for i,j in zip(tags,schemas)}

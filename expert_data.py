@@ -69,10 +69,10 @@ def task_run(urls,seqno):
 if __name__ == "__main__":
     start = datetime.now()
     print(start)
-    ltype = "ssq"
+    ltype = "dlt"
     typeno_dict = {"dlt":39,"ssq":5}
     typeno = typeno_dict[ltype]
-    seqno = 2025083
+    seqno = 2025084
     n_workers = 2
     batches = 8
     uidf = pd.read_csv(f"uid_{ltype}.csv",header=0,dtype={"userid":int})
