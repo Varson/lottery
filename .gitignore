@@ -9,6 +9,8 @@ wheels/
 .vscode/
 data/
 .DS_Store
+.idea/
+.env
 
 # Virtual environments
 .venv

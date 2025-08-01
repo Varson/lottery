@@ -9,12 +9,16 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from pathlib import Path
+import os
+from dotenv import load_dotenv
+import time
+from rich import print as rprint
 
 
 
 def get_users(tag):
     options = Options()
-    # options.add_argument("--headless=new")
+    options.add_argument("--headless=new")
     driver = webdriver.Chrome(options=options)
     resdict = defaultdict(list)
     driver.get(f"https://www.yiqicai.com/ex/dltex_{tag}")
@@ -25,6 +29,7 @@ def get_users(tag):
     resdict["userids"].append(uids)
     
     for p in range(1,75):
+        time.sleep(3)
         WebDriverWait(driver,60).until(EC.presence_of_element_located((By.XPATH,"//div[@class='btn-item btn-next']")))
         driver.find_element(By.XPATH, "//div[@class='btn-item btn-next']").click()
         WebDriverWait(driver,60).until(EC.presence_of_element_located((By.XPATH,"//div[@class='exp-list']")))
@@ -32,10 +37,12 @@ def get_users(tag):
         resdict["tag"].append(tag)
         resdict["pageno"].append(p)
         resdict["userids"].append(uids)
+        rprint(uids[:2],p)
     df = pd.DataFrame(resdict)
     return df
 if __name__ == "__main__":
-    seqno = 2025084
+    load_dotenv()
+    seqno = os.getenv("SEQNO")
     tags = [1025,1020,1010,1003,1002,1001,1106,1103,2006,2002,2001,2103]
     schemas = [config.drschema25,config.drschema20,config.drschema10,config.drschema3,config.drschema2,config.drschema1,config.drschemak6,config.drschemak3,config.dbschema6,config.dbschema2,config.dbschema1,config.dbschemak3]
     tag_schema = {i:j for i,j in zip(tags,schemas)}
