@@ -25,13 +25,18 @@ def get_users(tag):
     resdict["tag"].append(tag)
     resdict["pageno"].append(0)
     resdict["userids"].append(uids)
+    tuid = uids[0]
     
     for p in range(1,75):
         time.sleep(1)
         WebDriverWait(driver,60).until(EC.presence_of_element_located((By.XPATH,"//div[@class='btn-item btn-next']")))
         driver.find_element(By.XPATH, "//div[@class='btn-item btn-next']").click()
         WebDriverWait(driver,60).until(EC.presence_of_element_located((By.XPATH,"//div[@class='exp-list']")))
-        uids = [int(i.xpath("@href")[0].split(".")[0].split("_")[-1]) for i in etree.HTML(driver.page_source).xpath("//div[@class='exp-list']")[0].xpath("a[@href]")]
+        while True:
+            uids = [int(i.xpath("@href")[0].split(".")[0].split("_")[-1]) for i in etree.HTML(driver.page_source).xpath("//div[@class='exp-list']")[0].xpath("a[@href]")]
+            if uids[0]!=tuid:
+                tuid = uids[0]
+                break
         resdict["tag"].append(tag)
         resdict["pageno"].append(p)
         resdict["userids"].append(uids)
